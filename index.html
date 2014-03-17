@@ -33,8 +33,8 @@
 
 			navigator.accelerometer.watchAcceleration(
 				function ( acceleration ) { // Success
-					vel_x = acceleration.x;
-					vel_y = acceleration.y;
+					vel_x = acceleration.x * 2;
+					vel_y = acceleration.y * 2;
 				},
 				function () { // Error
 					alert( 'Error!' );
@@ -49,14 +49,14 @@
 		}
 
 		function create() {
-			map = game.add.tilemap( 'map', 64, 64 );
+			map = game.add.tilemap( 'map', 63, 63 );
 			map.addTilesetImage( 'tiles' );
 			layer = map.createLayer( 0 );
 			layer.resizeWorld();
 		}
 
 		function update() {
-			game.camera.x += vel_x;
+			game.camera.x -= vel_x;
 			game.camera.y += vel_y;
 		}
 
