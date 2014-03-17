@@ -14,8 +14,6 @@
 
 	<gap:platform name="android"/>
 
-	<feature name="Accelerometer">
-		<param name="android-package" value="org.apache.cordova.AccelListener"/>
-	</feature>
+	<gap:plugin name="org.apache.cordova.device-motion"/>
 
 </widget>
