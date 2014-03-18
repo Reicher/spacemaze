@@ -15,7 +15,7 @@
 	<!-- local js -->
 	<script type="text/javascript">
 		var
-			game,	map, layer, sprite,
+			game,	map, layer, ship,
 			angle = 0;
 
 		document.addEventListener( 'deviceready', onDeviceReady, false );
@@ -47,8 +47,11 @@
 			layer = map.createLayer( 'Layer' );
 			layer.resizeWorld();
 
-			sprite = game.add.sprite( 200, 200, 'ship' );
-			sprite.anchor.setTo( 0.5, 0.5 );
+			ship = game.add.sprite( 200, 200, 'ship' );
+			ship.anchor.setTo( 0.5, 0.5 );
+
+			game.physics.p2.enable( ship );
+			game.camera.follow( ship );
 		}
 
 		function update() {
@@ -62,6 +65,10 @@
 			);
 
 			sprite.angle = 0 - angle;
+
+			if ( game.input.pointer1.isDown ) {
+				ship.body.thrust( 300 );
+			}
 		}
 
 		function render() {
