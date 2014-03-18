@@ -16,6 +16,10 @@
 		<param name="android-package" value="org.apache.cordova.AccelListener"/>
 	</feature>
 
+	<feature name="Compass">
+		<param name="android-package" value="org.apache.cordova.CompassListener"/>
+	</feature>
+
 	<gap:platform name="android"/>
 
 	<gap:plugin name="org.apache.cordova.device-motion"/>
