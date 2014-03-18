@@ -16,8 +16,7 @@
 	<script type="text/javascript">
 		var
 			game,	map, layer, sprite,
-			vel_x = 0,
-			vel_y = 0;
+			angle = 0;
 
 		document.addEventListener( 'deviceready', onDeviceReady, false );
 
@@ -53,17 +52,16 @@
 		}
 
 		function update() {
-			navigator.accelerometer.getCurrentAcceleration(
-				function ( acceleration ) { // Success
-					vel_x = acceleration.x;
-					vel_y = acceleration.y;
+			navigator.compass.getCurrentHeading(
+				function ( heading ) { // Success
+					angle = heading.magneticHeading;
 				},
 				function () { // Error
 					alert( 'Error!' );
 				}
 			);
 
-			sprite.angle = Math.tan( vel_x / vel_y ) * 57.2957795;
+			sprite.angle = angle;
 		}
 
 		function render() {
