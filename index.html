@@ -15,7 +15,7 @@
 	<!-- local js -->
 	<script type="text/javascript">
 		var
-			game,	map, layer,
+			game,	map, layer, sprite,
 			vel_x = 0,
 			vel_y = 0;
 
@@ -35,21 +35,10 @@
 				}
 			);
 
-			navigator.accelerometer.watchAcceleration(
-				function ( acceleration ) { // Success
-					vel_x = acceleration.x * 2;
-					vel_y = acceleration.y * 2;
-				},
-				function () { // Error
-					alert( 'Error!' );
-				},
-				{ frequency : 100 }
-			);
-		}
-
 		function preload() {
 			game.load.tilemap( 'level', 'tilemaps/level.json', null, Phaser.Tilemap.TILED_JSON );
 			game.load.image( 'tiles', 'tilemaps/tiles.png' );
+			game.load.image( 'ship', 'sprite/ship.png' );
 		}
 
 		function create() {
@@ -57,11 +46,23 @@
 			map.addTilesetImage( 'SpaceTiles', 'tiles' );
 			layer = map.createLayer( 'Layer' );
 			layer.resizeWorld();
+
+			sprite = game.add.sprite( 200, 200, 'ship' );
+			sprite.anchor.setTo( 0.5, 0.5 );
 		}
 
 		function update() {
-			game.camera.x -= vel_x;
-			game.camera.y += vel_y;
+			navigator.accelerometer.getCurrentAcceleration(
+				function ( acceleration ) { // Success
+					vel_x = acceleration.x;
+					vel_y = acceleration.y;
+				},
+				function () { // Error
+					alert( 'Error!' );
+				}
+			);
+
+			sprite.angle = Math.tan( vel_x / vel_y ) * 57.2957795;
 		}
 
 		function render() {
